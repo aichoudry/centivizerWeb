@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Video Login</title>
+  
+  
+  
+      <link rel="stylesheet" href="/stylesheets/record.css">
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  
+</head>
+
+<body>
+
+  
+<h1>Centivizer Video Login</h1>
+<br>
+<div class="left">
+  <div id="startButton" class="btn btn-success button">
+    Start
+  </div>
+  <h2>Preview</h2>
+  <video id="preview" width="600" height="450" autoplay muted></video>
+</div>
+<div class="right">
+  <div id="stopButton" class="btn btn-danger button">
+    Stop
+  </div>
+  <h2>Recording</h2>
+  <video id="recording" width="600" height="450" controls></video>
+  <a id="downloadButton" class="btn btn-info button">
+    Download
+  </a>
+</div>
+<div class="bottom">
+  <pre id="log"></pre>
+</div>
+  
+  
+
+    <script  src="/javascripts/record.js"></script>
+
+
+
+
+</body>
+
+</html>

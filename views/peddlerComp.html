@@ -1,0 +1,126 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Peddler</title>
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/peddler.css">
+    <link href='/stylesheets/libs/open-sans.css' rel='stylesheet' type='text/css'>
+
+    <script src="/javascripts/createjs_1.2_min.js" type="text/javascript"></script>
+    <script src="/javascripts/10.5.0zim.js" type="text/javascript"></script>
+
+    <script src="/javascripts/libs/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/peddler.js" type="text/javascript"></script>
+
+
+
+</head>
+
+<body>
+    <div id="vidSelect" class="all">
+        <img class="logo" src="/images/peddler/logolong.jpg" alt="Logo">
+        <br>
+        <div class="blueBg">
+            <br>
+            <div>
+                <p class="title">Where would you like to explore? <p>
+            </div>
+
+            <div class="buttons">
+                <button id="but0" class="pickButton" type="button"></button>
+                <button id="but1" class="pickButton" type="button"></button>
+                <button id="but2" class="pickButton" type="button"></button>
+            </div>
+            <br>
+            <div class="buttons">
+                <button id="but3" class="pickButton" type="button"></button>
+                <button id="but4" class="pickButton" type="button"></button>
+                <button id="but5" class="playButton" type="button" onclick="getTrackForNextPage()">Shuffle</button>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div id="singlePlayerVid" onclick="window.location.reload();" class="pop">
+        <!-- <div id="back"> <a href="/">Back to Videos</a></div> -->
+        <div class="vid0"><video id="bikeVideo0" muted="muted"></video></div>
+        <p class="pauseInstructions">Press any button to return to menu</p>
+    </div>
+
+    <div id="singlePlayerWin" class="winScreen">
+        <br>
+        <br>
+        <p class="title">Congratulations</p>
+        <br>
+        <p class="winScreen">You have biked</p>
+        <p class="winScreen" id="minBiked0"></p>
+        <p class="winScreen" id="bikeTime0"></p>
+        <p class="winScreen">Great work! Let's bike again</p>
+        <p class="winScreen">Returning to menu in</p>
+        <p class="winScreen" id="ctDown2"></p>
+        <br>
+        <p class="winScreen">Press any button to return to menu</p>
+    </div>
+
+    <div id="competitiveVid" onclick="window.location.reload();" class="pop">
+        <!-- <div id="back"> <a href="/">Back to Videos</a></div> -->
+
+        <div class="vid1"><video id="bikeVideo1" muted="muted"></video></div>
+        <div class="vid2"><video id="bikeVideo2" muted="muted"></video></div>
+        <p class="pauseInstructions">Press any button to return to menu</p>
+        <p class="startCountdown" id="ctDown"></p>
+    </div>
+
+    <div id="compPlayer1Win" class="winScreen">
+        <br>
+        <br>
+        <p class="title">Winner: Player One</p>
+        <br>
+        <p class="winScreen">Great work! Let's bike again</p>
+        <p class="winScreen">Returning to menu in</p>
+        <p class="winScreen" id="ctDown2"></p>
+        <br>
+        <p class="winScreen">Press any button to return to menu</p>
+    </div>
+
+    <div id="compPlayer2Win" class="winScreen">
+        <br>
+        <br>
+        <p class="title">Winner: Player Two</p>
+        <br>
+        <p class="winScreen">Great work! Let's bike again</p>
+        <p class="winScreen">Returning to menu in</p>
+        <p class="winScreen" id="ctDown2"></p>
+        <br>
+        <p class="winScreen">Press any button to return to menu</p>
+    </div>
+
+    <div id="modeSelect" class="modeSelect">
+        <img class="logo" src="/images/peddler/logolong.jpg" width="200" alt="Logo">
+        <br>
+        <div class="blueBg">
+            <br>
+            <div>
+                <p class="title">Please choose a game mode<p>
+            </div>
+
+            <div class="buttons">
+                <button id="but6" class="disabled" type="button"></button>
+                <button id="but7" class="disabled" type="button"></button>
+                <button id="but8" class="disabled" type="button"></button>
+            </div>
+            <br>
+            <div class="buttons">
+                <button id="but9" class="modeButton" type="button" onclick="selectScreen(singlePlayer)">Single Player</button>
+                <button id="but10" class="disabled" type="button"></button>
+                <button id="but11" class="modeButton" type="button" onclick="selectScreen(competitive)">Competitive</button>
+            </div>
+        </div>
+        <br>
+    </div>
+
+
+</body>
+</html>

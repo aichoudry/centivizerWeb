@@ -1,0 +1,375 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Peddler</title>
+
+    <link rel="stylesheet" type="text/css" href="./stylesheets/peddler.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/libs/open-sans.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="./javascripts/createjs_1.2_min.js" type="text/javascript"></script>
+    <script src="./javascripts/10.5.0zim.js" type="text/javascript"></script>
+
+    <script src="./javascripts/libs/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="./socket.io/socket.io.js"></script>
+    <script src="./javascripts/peddler.js" type="text/javascript"></script>
+
+    <!-- <script src="../video-call/simplepeer.min.js"></script>
+    <script src="../video-call/globals.js"></script>
+    <script src="../video-call/videoStreaming.js"></script>
+    <script src="../video-call/videoStreamingSetup.js"></script>
+    <script src="../video-call/main.js"></script> -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <div id="userId"></div> 
+    <!-- <div id="friendsBar" class="bar">
+        <div class="display">
+            <p> <br>Invite Others: </p>
+        </div>
+        <div class="friendsButtons">
+            <div class="arrow">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="false"></span>
+            </div>
+            <div class="wholeButton">
+                <button id="butFriend0" class="pickButtonFriends" type="button"></button>
+                <button id="butFriendOnline0" type="button"></button>
+                <button id="butFriendOffline0" class="offlineIndication" type="button">OFFLINE</button>
+                <div class="nametag">
+                    <p id="name0" class="name"></p>
+                </div>
+            </div>
+            <div class="wholeButton">
+                <button id="butFriend1" class="pickButtonFriends" type="button"></button>
+                <button class="pickButtonFriendsSelected" type="button"></button>
+                <button id="animatedCalling" class="pickButtonFriendsAnimation" type="button"></button>
+                <button id="butFriendOnline1" type="button"></button>
+                <button id="butFriendOffline1" class="offlineIndication" type="button">OFFLINE</button>
+                <div class="nametag">
+                    <p id="name1" class="name"></p>
+                </div>
+            </div>
+            <div class="wholeButton">
+                <button id="butFriend2" class="pickButtonFriends" type="button"></button>
+                <button id="butFriendOnline2" type="button"></button>
+                <button id="butFriendOffline2" class="offlineIndication" type="button">OFFLINE</button>
+                <div class="nametag">
+                    <p id="name2" class="name"></p>
+                </div>
+            </div>
+            <div class="wholeButton">
+                <button id="butFriend3" class="pickButtonFriends" type="button"></button>
+                <button id="butFriendOnline3" type="button"></button>
+                <button id="butFriendOffline3" class="offlineIndication" type="button">OFFLINE</button>
+                <div class="nametag">
+                    <p id="name3" class="name"></p>
+                </div>
+            </div>
+
+            <div class="arrow">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="false"></span>
+            </div>
+           
+        </div>
+
+
+    </div> -->
+
+    <!-- <img id="logo" class="logo" src="/images/peddler/logolong.jpg" alt="Logo"> -->
+
+    <div id="iframeID" class="iframeClass hidden">
+        <iframe id="iframeWindow" scrolling="no" allow="camera; microphone" src="" width="100%" height="100%"></iframe>
+    </div>
+    <div id="vidSelect" class="all">
+        <br><br><br><br>
+        <img class="logo" src="./images/peddler/logolong.jpg" alt="Logo">
+        <br>
+        <div class="blueBg">
+            <br>
+            <div>
+                <p class="title">Where would you like to explore? <p>
+            </div>
+
+            <div class="buttons">
+                <button id="but0" class="pickButton" type="button"></button>
+                <button id="but1" class="pickButton" type="button"></button>
+                <button id="but2" class="pickButton" type="button"></button>
+            </div>
+            <br>
+            <div class="buttons">
+                <button id="but3" class="pickButton" type="button"></button>
+                <button id="but4" class="pickButton" type="button"></button>
+                <button id="but5" class="playButton" type="button" onclick="getTrackForNextPage()">More Options</button>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div id="playerSelect" class="all">
+        <img class="logo" src="./images/peddler/logolong.jpg" alt="Logo">
+        <br>
+        <div class="blueBg">
+            <br>
+            <div>
+                <p class="title">Who would you like to compete against? <p>
+            </div>
+
+            <div class="buttons">
+                <button id="but6" class="pickButton" type="button"></button>
+                <button id="but7" class="pickButton" type="button"></button>
+                <button id="but8" class="playButton" type="button" onclick="getTrackForNextPage()">Play<br>
+                    Local</button>
+            </div>
+            <br>
+            <div class="buttons">
+                <button id="but9" class="pickButton" type="button"></button>
+                <button id="but10" class="pickButton" type="button"></button>
+                <button id="but11" class="playButton" type="button" onclick="getTrackForNextPage()">More
+                    Players</button>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div id="singlePlayerVid" onclick="window.location.reload();" class="pop">
+        <!-- <div id="back"> <a href="/">Back to Videos</a></div> -->
+        <div class="vid0"><video id="bikeVideo0" muted="muted"></video></div>
+        <p class="pauseInstructions">Press any button to return to menu</p>
+        <p class="bikeTime" id="bikeTime0"></p>
+        <p class="bikeProgress" id="bikeProgress0"></p>
+    </div>
+
+    <div id="singlePlayerWin" class="winScreen">
+        <br>
+        <br>
+        <p class="white-title">Congratulations</p>
+        <br>
+        <table style="width:85%" align="center">
+            <tr>
+                <th><span class="winScreen">Pedals</span></th>
+                <th><span class="winScreen">Time Travelled</span></th>
+                <th><span class="winScreen">Pedals per Minute</span></th>
+                <th><span class="winScreen">Total Distance</span></th>
+            </tr>
+            <tr>
+                <td><span class="winTable"><span class="winTable" id="totalPeddleCount0"></span></span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeTime0Win"></span> minutes</span></td>
+                <td><span class="winTable"><span class="winTable" id="peddleRate0"></span> times</span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeDistance0"></span> m</span></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <p class="winScreen">Great work!</p>
+        <br>
+        <br>
+        <p class="winScreen">Let's bike again</p>
+        <!--<p class="winScreen">Returning to menu in: <span class="winScreen" id="ctDown2"></span></p>-->
+    </div>
+
+    <div id="competitiveVid" onclick="window.location.reload();" class="pop">
+        <div class="vid1Border"></div>
+        <div class="vid2Border"></div>
+        <!-- <div id="back"> <a href="/">Back to Videos</a></div> -->
+
+        <div class="vid1"><video id="bikeVideo1" muted="muted"></video></div>
+        <div class="vid2"><video id="bikeVideo2" muted="muted"></video></div>
+
+        <p class="pauseInstructions">Press any button to return to menu</p>
+
+        <p class="bikeTime1" id="bikeTime1"></p>
+        <p class="bikeTime" id="bikeTime2"></p>
+        <p class="bikeProgress1" id="bikeProgress1"></p>
+        <p class="bikeProgress" id="bikeProgress2"></p>
+        <p class="startCountdown" id="ctDown"></p>
+
+    </div>
+
+    <div class="finish1" id="finish1">
+        <p class="white-title">Finished!</p>
+    </div>
+    <div class="finish2" id="finish2">
+        <p class="white-title">Finished!</p>
+    </div>
+
+    <div id="compPlayerWin" class="winScreen">
+        <br>
+        <br>
+        <p class="white-title" id="compWinner"></p>
+        <br>
+        <table style="width:85%" id="compPlayerWinTable">
+            <tr>
+                <th><span class="winScreen">Player</span></th>
+                <th><span class="winScreen">Pedals</span></th>
+                <th><span class="winScreen">Time Travelled</span></th>
+                <th><span class="winScreen">Pedals per Minute</span></th>
+                <th><span class="winScreen">Distance Travelled</span></th>
+            </tr>
+            <tr>
+                <td><span class="winTable">
+                        <nobr>Player 1</nobr>
+                    </span></td>
+                <td><span class="winTable"><span class="winTable" id="totalPeddleCount1"></span></span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeTime1Win"></span> minutes</span></td>
+                <td><span class="winTable"><span class="winTable" id="peddleRate1"></span> times</span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeDistance1"></span> m</span></td>
+            </tr>
+            <tr>
+                <td><span class="winTable">Player 2</span></td>
+                <td><span class="winTable"><span class="winTable" id="totalPeddleCount2"></span></span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeTime2Win"></span> minutes</span></td>
+                <td><span class="winTable"><span class="winTable" id="peddleRate2"></span> times</span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeDistance2"></span> m</span></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <p class="winScreen">Great work!</p>
+        <p class="winScreen">Returning to menu in</p>
+        <p class="winScreen" id="compCtDown"></p>
+
+    </div>
+
+
+    <div id="competitiveRemoteVid" onclick="window.location.reload();" class="pop">
+        <!-- <div id="back"> <a href="/">Back to Videos</a></div> -->
+        <!-- <iframe id="VideoStream" src="http://35.182.51.66:8000" width="30%" height="200" scrolling="no"
+            sandbox="allow-top-navigation allow-same-origin allow-scripts" allow="camera; microphone"></iframe> -->
+        <div class="vid0"><video id="bikeVideo3" muted="muted"></video></div>
+
+        <p class="pauseInstructions">Press any button to return to menu</p>
+        <p class="startCountdown" id="ctDown1"></p>
+
+        <p class="bikeTime1" id="bikeTime3"></p>
+        <p class="bikeProgress1" id="bikeProgress3"></p>
+    </div>
+
+    <div class="finish1" id="finish3">
+        <p class="white-title">Finished!</p>
+    </div>
+    <div class="finish2" id="finish4">
+        <p class="white-title">Finished!</p>
+    </div>
+
+    <div id="compRemotePlayerWin" class="winScreen">
+        <br>
+        <br>
+        <p class="white-title" id="compRemoteWinner"></p>
+        <br>
+        <table style="width:85%;" id="compRemotePlayerWinTable">
+            <tr>
+                <th><span class="winScreen">Player</span></th>
+                <th><span class="winScreen">Pedals</span></th>
+                <th><span class="winScreen">Time Travelled</span></th>
+                <th><span class="winScreen">Pedals per Minute</span></th>
+                <th><span class="winScreen">Distance Travelled</span></th>
+            </tr>
+            <tr>
+                <td><span class="winTable">
+                        <nobr>Player 1</nobr>
+                    </span></td>
+                <td><span class="winTable"><span class="winTable" id="totalPeddleCount3"></span></span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeTime3Win"></span> minutes</span></td>
+                <td><span class="winTable"><span class="winTable" id="peddleRate3"></span> times</span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeDistance3"></span> m</span></td>
+            </tr>
+            <tr>
+                <td><span class="winTable">Player 2</span></td>
+                <td><span class="winTable"><span class="winTable" id="totalPeddleCount4"></span></span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeTime4Win"></span> minutes</span></td>
+                <td><span class="winTable"><span class="winTable" id="peddleRate4"></span> times</span></td>
+                <td><span class="winTable"><span class="winTable" id="bikeDistance4"></span> m</span></td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <p class="winScreen">Great work!</p>
+        <p class="winScreen">Returning to menu in</p>
+        <p class="winScreen" id="compRemoteCtDown"></p>
+
+    </div>
+
+    <div onclick="window.location.reload();" class="pop">
+        <!-- <div id="back"> <a href="/">Back to Videos</a></div> -->
+
+        <div class="vid0"><video id="bikeVideo4" muted="muted"></video></div>
+        <p class="bikeTime1" id="bikeTime4"></p>
+        <p class="bikeProgress1" id="bikeProgress4"></p>
+    </div>
+
+    <!--
+    <div id="modeSelect" class="modeSelect">
+        <img class="logo" src="/images/peddler/logolong.jpg" alt="Logo">
+        <br>
+        <div class="blueBg">
+            <br>
+            <div>
+                <p class="title">Please choose a game mode<p>
+            </div>
+
+            <div class="buttons">
+                <button id="but6" class="disabled" type="button"></button>
+                <button id="but7" class="disabled" type="button"></button>
+                <button id="but8" class="disabled" type="button"></button>
+            </div>
+            <br>
+            <div class="buttons">
+                <button id="but9" class="modeButton" type="button" onclick="selectScreen(singlePlayer)">Single Player</button>
+                <button id="but10" class="disabled" type="button"></button>
+                <button id="but11" class="modeButton" type="button" onclick="selectScreen(competitive)">Competitive</button>
+            </div>
+        </div>
+        <br>
+    </div>
+    -->
+    <div id="promptForPedal" class="promptBox">
+        <div class="verticallyAlligned">
+            <p style="text-align:center">Would you like to pedal with someone else?</p>
+            <button type="button" class="btn btn-light btn-lg">Press any button to find someone</button>
+        </div>
+    </div>
+    <div id="waitForPedal" class="promptBox">
+        <div class="verticallyAlligned">
+            <p style="text-align:center">Please wait while we find someone.</p>
+            <button type="button" class="btn btn-light btn-lg">Press any button to find someone</button>
+        </div>
+    </div>
+    <div id="responseToRemoteComp" class="responseBox">
+        <div class="verticallyAlligned">
+            <span>Would you like to compete with</span>
+            <span id="comp name"></span>
+            <span>?</span>
+            <p></p>
+            <button id="yesButton" type="button" class="btn btn-success btn-lg">Yes</button>
+            <button id="noButton" type="button" class="btn btn-danger btn-lg">No</button>
+        </div>
+    </div>
+    <div id="notificationToOnePlayerQuit" class="responseBox">
+        <div class="verticallyAlligned">
+            <p>Your opponent has exited the game. Returning to single player mode.</p>
+        </div>
+    </div>
+    <div id="notificationToRejection" class="responseBox">
+        <div class="verticallyAlligned">
+            <p>Your opponent has rejected the invitation.</p>
+        </div>
+    </div>
+    <div id="notificationToSelectingMap" class="responseBox">
+        <div class="verticallyAlligned">
+            <p>Connected with the opponent. Please select a map.</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

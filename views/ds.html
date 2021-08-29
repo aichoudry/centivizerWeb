@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Babylon.js sample code</title>
+
+    <!-- Babylon.js -->
+    <!--
+    <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+    <script src="https://preview.babylonjs.com/cannon.js"></script>
+    <script src="https://preview.babylonjs.com/Oimo.js"></script>
+    <script src="https://preview.babylonjs.com/earcut.min.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+    <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+    <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+    <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+    <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+  -->
+
+    <!-- <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script> -->
+    <script src="/examples/jquery/pep.js"></script>
+    <script src="examples/socket.io/socket.io.js"></script>
+    <script src="/examples/jquery/dist/jquery.min.js"></script>
+
+    <!-- Downloaded offline source files -->
+    <script src="/examples/offline_js/pep.min.js"></script>
+    <script src="/examples/offline_js/dat.gui.min.js"></script>
+    <script src="/examples/offline_js/cannon.js"></script>
+    <script src="/examples/offline_js/Oimo.js"></script>
+    <script src="/examples/offline_js/earcut.min.js"></script>
+    <script src="/examples/offline_js/babylon.js"></script>
+    <script src="/examples/offline_js/babylon.inspector.bundle.js"></script>
+    <script src="/examples/offline_js/babylonjs.materials.min.js"></script>
+    <script src="/examples/offline_js/babylonjs.proceduralTextures.min.js"></script>
+    <script src="/examples/offline_js/babylonjs.postProcess.min.js"></script>
+    <script src="/examples/offline_js/babylonjs.loaders.js"></script>
+    <script src="/examples/offline_js/babylonjs.serializers.min.js"></script>
+    <script src="/examples/offline_js/babylon.gui.min.js"></script>
+
+
+
+
+
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(#83CA9C, #00AB9B);
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+
+        #todo {
+            position: absolute;
+            background-color: rgb(253, 253, 220);
+            /*background-image: url("examples/assets/textures/notebook-01.png");*/
+            top: 50px;
+            left: 50px;
+            width: 250px;
+            border-radius: 10%;
+            padding: 20px;
+        }
+
+        #todoHeader {
+            text-align: center;
+            font-family:sans-serif;
+            font-size: 34px;
+            font-weight: 800;
+
+        }
+
+        .todoItem {
+            font-family:sans-serif;
+            font-size: 34px;
+            /* text-align: center; */
+            padding:10px;
+            border-bottom: 1px solid rgb(0, 34, 146);
+            border-left: 2px solid red;
+        }
+
+        .crossOut {
+            text-decoration: line-through;
+            color: green;
+            margin-right: 50px;
+        }
+
+        .fa-check {
+            color: green;
+        }
+
+    </style>
+
+</head>
+<body>
+<canvas id="renderCanvas" touch-action="none"></canvas>
+
+<script type="text/javascript" src="examples/lib.js"></script>
+<script type="text/javascript" src="examples/data.js"></script>
+<script type="text/javascript" src="examples/modelFactory.js"></script>
+<script type="text/javascript" src="examples/modelFactory2.js"></script>
+<script type="text/javascript" src="examples/todolist.js"></script>
+<script type="text/javascript" src="examples/speedSys.js"></script>
+<script type="text/javascript" src="examples/scene.js"></script>
+<script type="text/javascript" src="examples/car0.js"></script>
+<script type="text/javascript" src="examples/city.js"></script>
+<script type="text/javascript" src="examples/scene_testing.js"></script>
+<script type="text/javascript" src="examples/self_driving_car.js"></script>
+
+
+<div id="todo">
+    <p id="todoHeader">ToDo <i class="fas fa-shopping-cart"></i></p>
+    <div id="todoList">
+        <!-- <div class="todoItem"> <span class="crossOut">Bread</span><i class="fas fa-check"></i></div>
+        <div class="todoItem">Milk</div>
+        <div class="todoItem">Milk</div>
+        <div class="todoItem">Milk</div>
+        <div class="todoItem">Milk</div> -->
+    </div>
+</div>
+
+<audio id="loadingSound" src="examples/assets/music/sounds/car_start3.wav"></audio>
+
+<canvas id="myCanvas" width="100" height="100"></canvas>
+
+<script>
+  $(document).keypress(function(event){
+    // console.log(String.fromCharCode(event.which));
+    //commented out for tristate switch
+    /*if ('qweasd'.indexOf(String.fromCharCode(event.which)) !== -1 ){
+    window.location.href = '/nav'
+    } */
+    if ('012'.indexOf(String.fromCharCode(event.which)) !== -1 ){
+      if (String.fromCharCode(event.which) === '0') {
+        navPath = '/nav'
+      } else if (String.fromCharCode(event.which) === '1') {
+        navPath = '/peddler'
+      } else if (String.fromCharCode(event.which) === '2') {
+        navPath = '/ds'
+      }
+
+      function navigate() {
+        window.location.href = navPath;
+      }
+
+      setTimeout(navigate, 1000);
+    }
+  });
+
+  var socket = io('http://192.168.0.100:3000');
+  socket.emit('wheel start', {chatroom: 'wheel'});
+  socket.emit('joystick start', {chatroom: 'joystick'});
+
+  var canvas = document.getElementById("renderCanvas");
+  var engine = new BABYLON.Engine(canvas, true);
+
+  // engine.loadingUIText = "Centivizer Driving Simulator";
+  // //249 245 228
+  // //  #f9f5e3
+  // engine.loadingUIBackgroundColor = "#f9f5e3";
+
+
+
+  function Nice(_renderingCanvas, _loadingText, _loadingDivBackgroundColor) {
+    if (_loadingText === void 0) { _loadingText = ""; }
+    if (_loadingDivBackgroundColor === void 0) { _loadingDivBackgroundColor = "black"; }
+
+    var _this = this;
+    this._renderingCanvas = document.querySelector("#renderCanvas");
+    this._loadingText = _loadingText;
+    this._loadingDivBackgroundColor = _loadingDivBackgroundColor;
+// Resize
+    this._resizeLoadingUI = function () {
+      var canvasRect = _this._renderingCanvas.getBoundingClientRect();
+      var canvasPositioning = window.getComputedStyle(_this._renderingCanvas).position;
+      if (!_this._loadingDiv) {
+        return;
+      }
+      _this._loadingDiv.style.position = (canvasPositioning === "fixed") ? "fixed" : "absolute";
+      _this._loadingDiv.style.left = canvasRect.left + "px";
+      _this._loadingDiv.style.top = canvasRect.top + "px";
+      _this._loadingDiv.style.width = canvasRect.width + "px";
+      _this._loadingDiv.style.height = canvasRect.height + "px";
+    };
+  }
+  /**
+   * Function called to display the loading screen
+   */
+  Nice.prototype.displayLoadingUI = function () {
+    if (this._loadingDiv) {
+      // Do not add a loading screen if there is already one
+      return;
+    }
+    this._loadingDiv = document.createElement("div");
+    this._loadingDiv.id = "babylonjsLoadingDiv";
+    this._loadingDiv.style.opacity = "0";
+    this._loadingDiv.style.transition = "opacity 1.5s ease";
+    this._loadingDiv.style.pointerEvents = "none";
+// Loading text
+
+// Generating keyframes
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    let keyFrames =
+      `@-webkit-keyframes spin1 {
+  0% { -webkit-transform: rotate(0deg);}\n
+  100% { -webkit-transform: rotate(360deg);}\n
+}
+@keyframes spin1 {
+  0% { transform: rotate(0deg);}\n
+  100% { transform: rotate(360deg);}\n
+}
+
+@keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to   {
+      opacity: 1;
+    }
+}
+`;
+
+    style.innerHTML = keyFrames;
+    document.getElementsByTagName('head')[0].appendChild(style);
+// Loading img
+    var imgBack = new Image();
+    imgBack.src = "examples/assets/textures/steering wheel-01 25.png";
+    imgBack.style.width = "36%";
+    imgBack.style.height = "auto";
+    imgBack.style.display = "block";
+    // imgBack.style.left = "50%";
+    // imgBack.style.top = "50%";
+    imgBack.style.marginTop = `5%`;
+    imgBack.style.marginLeft = `auto`;
+    imgBack.style.marginRight = `auto`;
+    imgBack.style.animation = "spin1 2s infinite ease-in-out";
+    imgBack.style.webkitAnimation = "spin1 2s infinite ease-in-out";
+    imgBack.style.transformOrigin = "50% 50%";
+    imgBack.style.webkitTransformOrigin = "50% 50%";
+    this._loadingDiv.appendChild(imgBack);
+    this._resizeLoadingUI();
+    window.addEventListener("resize", this._resizeLoadingUI);
+    this._loadingDiv.style.backgroundColor = this._loadingDivBackgroundColor;
+    this._loadingDiv.style.backgroundImage = "linear-gradient(#83CA9C, #00AB9B)";
+    // this._loadingDiv.style.backgroundImage = "url(examples/assets/textures/<some beautiful pic>.jpg)";
+
+    document.body.appendChild(this._loadingDiv);
+    this._loadingDiv.style.opacity = "1";
+
+    this._loadingTextDiv = document.createElement("div");
+    // this._loadingTextDiv.style.position = "absolute";
+    this._loadingTextDiv.style.left = "0";
+    this._loadingTextDiv.style.top = "50%";
+    this._loadingTextDiv.style.marginTop = "2%";
+    this._loadingTextDiv.style.width = "100%";
+    this._loadingTextDiv.style.height = "20px";
+    this._loadingTextDiv.style.fontFamily = "Arial";
+    this._loadingTextDiv.style.fontWeight = "800";
+    this._loadingTextDiv.style.fontSize = "35px";
+    this._loadingTextDiv.style.textShadow = "3px 3px #2e2e2e";
+    this._loadingTextDiv.style.color = "white";
+    this._loadingTextDiv.style.textAlign = "center";
+    this._loadingTextDiv.style.animation = "fadein 5s";
+    this._loadingDiv.appendChild(this._loadingTextDiv);
+//set the predefined text
+    this._loadingTextDiv.innerHTML = this._loadingText;
+    this.loadingSound = document.getElementById('loadingSound')
+    this.loadingSound.play();
+  };
+
+
+  Nice.prototype.hideLoadingUI = function () {
+    var _this = this;
+    if (!this._loadingDiv) {
+      return;
+    }
+    var onTransitionEnd = function () {
+      if (!_this._loadingDiv) {
+        return;
+      }
+      if (_this._loadingDiv.parentElement) {
+        _this._loadingDiv.parentElement.removeChild(_this._loadingDiv);
+      }
+      window.removeEventListener("resize", _this._resizeLoadingUI);
+      _this._loadingDiv = null;
+    };
+    this._loadingDiv.style.opacity = "0";
+    this._loadingDiv.addEventListener("transitionend", onTransitionEnd);
+  };
+
+
+  engine.loadingScreen = new Nice(document.querySelector("#renderCanvas"), "START YOUR ENGINES!", "#f9f5e2");
+
+
+  var scene;
+  var drivein;
+
+  $.getJSON("examples/initConfig2.json", function(CONFIG) {
+//scene = createScene(CONFIG);
+
+    scene = createTestScene(CONFIG);
+//  console.log(drivein);
+    document.getElementById("renderCanvas").focus();
+  });
+
+  document.condition = false;
+  document.second_condition = false;
+  engine.runRenderLoop(function () {
+    if (document.condition) {
+      if (drivein) {
+        if (!document.second_condition) {
+          var event = new Event('drivein');
+          window.dispatchEvent(event);
+          document.second_condition = true;
+        } else {
+          drivein.render();
+        }
+      }
+    } else {
+      if (scene) {
+        scene.render();
+      }
+    }
+  });
+  // Resize
+  window.addEventListener("resize", function () {
+    engine.resize();
+  });
+
+
+
+</script>
+</body>
+</html>

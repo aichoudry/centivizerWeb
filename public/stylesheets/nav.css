@@ -1,0 +1,67 @@
+/*#wholeScreen {
+	position:fixed; 
+	top:0px; 
+	left:0px;
+	bottom:0px; 
+	right:0px; 
+	width:100%; 
+	height:100%; 
+	border:none; 
+	margin:0; 
+	padding:0; 
+	overflow:hidden; 
+	
+  
+}
+
+
+
+.left {
+  background: grey;  
+}
+
+.right {
+  background: black;  
+}
+
+.main-wrapper {
+  height: 100vh;  
+}
+
+.section {
+  height: 100%;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.half {
+  background: #f9f9f9;
+  height: 50%;  
+  width: 100%;
+  margin: 15px 0;
+}
+
+h4 {
+  color: white;  
+}*/
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 530px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <title>Video Chat App</title>
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="./main.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="./simplepeer.min.js"></script>
+    <script src="./globals.js"></script>
+    <script src="./videoStreaming.js"></script>
+    <script src="./videoStreamingSetup.js"></script>
+</head>
+
+<body>
+    <div id="peerDiv" class="embed-responsive embed-responsive-16by9 hidden">
+        <video id="second-streaming-video-id" style='display:none' ></video>
+    </div>
+    <div id="content">
+        <div id="nameDiv">
+            <p id="incoming">Incoming call from</p>
+            <p id="name"></p>
+        </div>
+        <div id="progressPortrait">
+            <svg
+                class="progress-ring"
+                height="120"
+                width="120"
+            >
+                <circle
+                    class="progress-ring__circle"
+                    stroke-width="4"
+                    stroke="#31a9aa"
+                    fill="transparent"
+                    r="52"
+                    cx="60"
+                    cy="60"
+                />
+            </svg>
+            <img id="profilePic" src="../images/peddler/profile_pic.png"/>
+        </div>
+        <div id="acceptText">
+            <div id="accepter" style="width: 100%; height:100 px;">
+                Connecting call in . Press any button to cancel.
+            </div>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+
+</body>
+
+</html>
+

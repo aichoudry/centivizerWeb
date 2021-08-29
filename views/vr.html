@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>videojs-vr Demo</title>
+   <link href="/stylesheets/vr/video.js/dist/video-js.css" rel="stylesheet">
+   <link href="/stylesheets/vr/videojs-vr.css" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href="/stylesheets/vr.css">
+   
+  <!--  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script> -->
+  <script src="/javascripts/libs/jquery-3.3.1.min.js" type="text/javascript"></script>
+  <script src="/socket.io/socket.io.js"></script>
+   <script src="/javascripts/vr/video.js/dist/video.js"></script>
+   <script src="/javascripts/vr/videojs-vr.js"></script>
+   <script src="/javascripts/vr.js" type="text/javascript"></script>
+
+ 
+</head>
+<body>
+  <div>
+  <div id="back"> <a href="/">Back to Videos</a></div>
+  <div id="vr-vid-container">
+    <!-- only for dec 7 demo, adding default audio by removing muted -->
+  <video width="1900" height="1060" id="videojs-vr-player" class="video-full" controls loop>
+    <!-- <source src="/videos/vr/venice.mp4" type="video/mp4"> -->
+      <source src="/videos/vr/<%= source %>.mp4" type="video/mp4">
+      
+  </video>
+ <!--  <video width="1900" height="1060" id="videojs-vr-player" class="video-js vjs-default-skin" controls loop>
+    <source src="/videos/vr/venice.mp4" type="video/mp4">
+  </video> -->
+  </div>
+  </div>
+<!-- only for dec 7 demo, disabling audio -->
+<!--   <audio controls autoplay loop>
+  <source src="/sounds/vr/Steve.mp3" type="audio/mpeg"> -->
+Your browser does not support the audio element.
+</audio>
+
+
+</body>
+</html>
