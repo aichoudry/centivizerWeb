@@ -1,5 +1,5 @@
 // currently using the user ID for logging in, this will be replaced with face identification in the future
-let USER_ID = null;
+let USER_ID = "e579923b-6f72-4e98-b735-c9dc057074c5";
 //for development uncomment
 /*
 let USER_ID = prompt("Enter UserID")
